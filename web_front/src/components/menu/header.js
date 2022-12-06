@@ -121,14 +121,14 @@ const Header = function({ className }) {
       };
     }, []);
     return (
-    <header className={`navbar white ${className}`} id="myHeader">
+    <header className={`navbar ${className}`} id="myHeader">
      <div className='container'>
        <div className='row w-100-nav'>
           <div className='logo px-0'>
               <div className='navbar-title navbar-item'>
                 <NavLink to="/">
                 <img
-                    src="/img/logo.png"
+                    src="/img/home/website_icon_xsm.png"
                     className="img-fluid d-block"
                     alt="#"
                   />
@@ -193,7 +193,7 @@ const Header = function({ className }) {
                         )}
                       </div>
                     </div>
-                    <div className='navbar-item'>
+                    {/* <div className='navbar-item'>
                       <div ref={ref2}>
                         <div className="dropdown-custom dropdown-toggle btn" 
                           onClick={handleBtnClick2}
@@ -225,7 +225,7 @@ const Header = function({ className }) {
                       <NavLink to="/activity" onClick={() => btn_icon(!showmenu)}>
                         Activity
                       </NavLink>
-                    </div>
+                    </div> */}
                     <div className='navbar-item'>
                       <div ref={ref3}>
                         <div className="dropdown-custom dropdown-toggle btn" 
@@ -265,13 +265,13 @@ const Header = function({ className }) {
                       <div ref={ref1}>
                           <div className="dropdown-custom dropdown-toggle btn" 
                              onMouseEnter={handleBtnClick1} onMouseLeave={closeMenu1}>
-                            Explore
+                            Create
                             <span className='lines'></span>
                             {openMenu1 && (
                             <div className='item-dropdown'>
                               <div className="dropdown" onClick={closeMenu1}>
                               {/* <NavLink to="/explore">Explore</NavLink> */}
-                              <NavLink to="/explore2Grey">Explore</NavLink>
+                              <NavLink to="/create">Create</NavLink>
                               {/* <NavLink to="/exploreOpensea">Explore OpenSea</NavLink>
                               <NavLink to="/rangking">Rangking</NavLink>
                               <NavLink to="/rangkingGrey">Rangking Grey</NavLink>
@@ -290,7 +290,7 @@ const Header = function({ className }) {
                           
                         </div>
                     </div>
-                    <div className='navbar-item'>
+                    {/* <div className='navbar-item'>
                       <div ref={ref2}>
                           <div className="dropdown-custom dropdown-toggle btn" 
                              onMouseEnter={handleBtnClick2} onMouseLeave={closeMenu2}>
@@ -299,7 +299,7 @@ const Header = function({ className }) {
                             {openMenu2 && (
                             <div className='item-dropdown'>
                               <div className="dropdown" onClick={closeMenu2}>
-                              <NavLink to="/Author/1">Author</NavLink>
+                              <NavLink to="/Author/1">Author</NavLink> */}
                               {/* <NavLink to="/Profile/1">Profile</NavLink> */}
                               {/* <NavLink to="/AuthorGrey/1">Author Grey</NavLink>
                               <NavLink to="/AuthorOpensea">Author OpenSea</NavLink>
@@ -317,18 +317,18 @@ const Header = function({ className }) {
                               <NavLink to="/loginTwo">login 2</NavLink>
                               <NavLink to="/register">Register</NavLink>
                               <NavLink to="/contact">Contact Us</NavLink> */}
-                              </div>
+                              {/* </div>
                             </div>
                           )}
                           </div>
                         </div>
-                    </div>
-                    <div className='navbar-item'>
+                    </div> */}
+                    {/* <div className='navbar-item'>
                       <NavLink to="/activity">
                       Activity
                       <span className='lines'></span>
                       </NavLink>
-                    </div>
+                    </div> */}
                     
                   </div>
                 </Breakpoint>

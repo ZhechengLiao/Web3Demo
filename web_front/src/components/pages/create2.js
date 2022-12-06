@@ -12,15 +12,16 @@ const { Search } = Input;
 const onSearch = (value) => console.log(value);
 const { TextArea } = Input;
 
+
 // color, env, materials, objects, styles
 const count = 3;
-const envUrl = 'http://185.46.222.81:4501/keyword/?type=effect_geometry&num=5';
-const colorUrl = 'http://185.46.222.81:4501/keyword/?type=effect_color&num=5'
-const materialsUrl = 'http://185.46.222.81:4501/keyword/?type=manifestations&num=5'
-const objectsUrl = 'http://185.46.222.81:4501/keyword/?type=objects&num=5'
-const stylesUrl = 'http://185.46.222.81:4501/keyword/?type=styles_artists&num=5'
-const lightUrl = 'http://185.46.222.81:4501/keyword/?type=effect_lighting&num=5'
-const viewUrl = 'http://185.46.222.81:4501/keyword/?type=effect_perspective&num=5'
+const envUrl = 'http://61.220.40.95:40909/frequency/?category=effect_geometry&nums=5';
+const colorUrl = 'http://61.220.40.95:40909/frequency/?category=effect_color&num=5'
+const materialsUrl = 'http://61.220.40.95:40909/frequency/?category=manifestations&num=5'
+const objectsUrl = 'http://61.220.40.95:40909/frequency/?category=objects&num=5'
+const stylesUrl = 'http://61.220.40.95:40909/frequency/?category=styles_artists&num=5'
+const lightUrl = 'http://61.220.40.95:40909/frequency/?category=effect_lighting&num=5'
+const viewUrl = 'http://61.220.40.95:40909/frequency/?category=effect_perspective&num=5'
 // const resultImg = {"image0":"http://71.26.5.150:10402/ipfs/QmV8Pww4G9EjKtB6jGnaicMjtNijd5sqPdXbWCE9zC3nwV","image1":"http://71.26.5.150:10402/ipfs/QmPSMk1FDH1EHHNPbi1EW8Drf6JoHbZqKGBHeLy2U1dXJz","image2":"http://71.26.5.150:10402/ipfs/QmdQPPoLfJcbSyQzg25ZFEmomw3C8jPh3RUQ4sz5bu8LR3","image3":"http://71.26.5.150:10402/ipfs/QmfMDGq8fhHswJgAbhqW3fiJZSsgwF9wNDjQDpsqF3CQSD"}
 
 const Create2 = () => {
@@ -40,18 +41,18 @@ const Create2 = () => {
     const [lightEffectList, setLightEffectList] = useState([]);
     const [colorData, setColorData] = useState([]);
     const [colorList, setColorList] = useState([]);
+    
 
+   
 
-
-
-
+    
     // materials part
     // handle manifestations selected tags
     const [selectedManifestationsTags, setSelectedManifestationsTags] = useState([]);
     const handleManifestationsTagChange = (tag, checked) => {
         const nextSelectedManifestationsTags = checked
-            ? [...selectedManifestationsTags, tag]
-            : selectedManifestationsTags.filter((t) => t !== tag);
+        ? [...selectedManifestationsTags, tag]
+        : selectedManifestationsTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedManifestationsTags);
         console.log("You are interested in selectedManifestationsTags: ", selectedManifestationsTags);
 
@@ -61,48 +62,48 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(materialsUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setMaterialsData(res.result);
-                setMaterialsList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setMaterialsData(res.result);
+            setMaterialsList(res.result);
+        });
     }, []);
     const materialsOnLoadMore = () => {
         setLoading(true);
         setMaterialsList(
             materialsData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(materialsUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = materialsData.concat(res.result);
-                setMaterialsData(newData);
-                setMaterialsList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = materialsData.concat(res.result);
+            setMaterialsData(newData);
+            setMaterialsList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const materialsLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={materialsOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={materialsOnLoadMore}>show more</Button>
+        </div>
         ) : null;
 
 
@@ -111,56 +112,56 @@ const Create2 = () => {
     const [selectedObjTags, setSelectedObjTags] = useState([]);
     const handleObjTagChange = (tag, checked) => {
         const nextSelectedObjTags = checked
-            ? [...selectedObjTags, tag]
-            : selectedObjTags.filter((t) => t !== tag);
+        ? [...selectedObjTags, tag]
+        : selectedObjTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedObjTags);
         setSelectedObjTags(nextSelectedObjTags);
     };
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(objectsUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setObjData(res.result);
-                setObjList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setObjData(res.result);
+            setObjList(res.result);
+        });
     }, []);
     const objOnLoadMore = () => {
         setLoading(true);
         setObjList(
             objData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(objectsUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = objData.concat(res.result);
-                setObjData(newData);
-                setObjList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = objData.concat(res.result);
+            setObjData(newData);
+            setObjList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const objLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={objOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={objOnLoadMore}>show more</Button>
+        </div>
         ) : null;
 
 
@@ -171,8 +172,8 @@ const Create2 = () => {
     const [selectedEnvTags, setSelectedEnvTags] = useState([]);
     const handleEnvTagChange = (tag, checked) => {
         const nextSelectedEnvTags = checked
-            ? [...selectedEnvTags, tag]
-            : selectedEnvTags.filter((t) => t !== tag);
+        ? [...selectedEnvTags, tag]
+        : selectedEnvTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedEnvTags);
         setSelectedEnvTags(nextSelectedEnvTags);
     };
@@ -180,48 +181,48 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(envUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setData(res.result);
-                setList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setData(res.result);
+            setList(res.result);
+        });
     }, []);
     const onLoadMore = () => {
         setLoading(true);
         setList(
-            data.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+        data.concat(
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(envUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = data.concat(res.result);
-                setData(newData);
-                setList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = data.concat(res.result);
+            setData(newData);
+            setList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const loadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={onLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={onLoadMore}>show more</Button>
+        </div>
         ) : null;
 
 
@@ -230,8 +231,8 @@ const Create2 = () => {
     const [selectedStyleTags, setSelectedStyleTags] = useState([]);
     const handleStyleTagChange = (tag, checked) => {
         const nextSelectedStyleTags = checked
-            ? [...selectedStyleTags, tag]
-            : selectedStyleTags.filter((t) => t !== tag);
+        ? [...selectedStyleTags, tag]
+        : selectedStyleTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedStyleTags);
         setSelectedStyleTags(nextSelectedStyleTags);
     };
@@ -239,57 +240,57 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(stylesUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setStyleData(res.result);
-                setStyleList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setStyleData(res.result);
+            setStyleList(res.result);
+        });
     }, []);
     const styleOnLoadMore = () => {
         setLoading(true);
         setStyleList(
             styleData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(stylesUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = styleData.concat(res.result);
-                setStyleData(newData);
-                setStyleList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = styleData.concat(res.result);
+            setStyleData(newData);
+            setStyleList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const styleLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={styleOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={styleOnLoadMore}>show more</Button>
+        </div>
         ) : null;
-
+    
     // View part
     // handle View selected tags
     const [selectedViewTags, setSelectedViewTags] = useState([]);
     const handleViewTagChange = (tag, checked) => {
         const nextSelectedViewTags = checked
-            ? [...selectedViewTags, tag]
-            : selectedViewTags.filter((t) => t !== tag);
+        ? [...selectedViewTags, tag]
+        : selectedViewTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedViewTags);
         setSelectedViewTags(nextSelectedViewTags);
     };
@@ -297,58 +298,58 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(viewUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setViewData(res.result);
-                setViewList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setViewData(res.result);
+            setViewList(res.result);
+        });
     }, []);
     const viewOnLoadMore = () => {
         setLoading(true);
         setViewList(
             viewData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(viewUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = viewData.concat(res.result);
-                setViewData(newData);
-                setViewList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = viewData.concat(res.result);
+            setViewData(newData);
+            setViewList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const viewLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={viewOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={viewOnLoadMore}>show more</Button>
+        </div>
         ) : null;
-
+    
 
     // LightEffect part
     // handle LightEffect selected tags
     const [selectedLightEffectTags, setSelectedLightEffectTags] = useState([]);
     const handleLightEffectTagChange = (tag, checked) => {
         const nextSelectedLightEffectTags = checked
-            ? [...selectedLightEffectTags, tag]
-            : selectedLightEffectTags.filter((t) => t !== tag);
+        ? [...selectedLightEffectTags, tag]
+        : selectedLightEffectTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedLightEffectTags);
         setSelectedLightEffectTags(nextSelectedLightEffectTags);
     };
@@ -356,48 +357,48 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(lightUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setLightEffectData(res.result);
-                setLightEffectList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setLightEffectData(res.result);
+            setLightEffectList(res.result);
+        });
     }, []);
     const lightEffectOnLoadMore = () => {
         setLoading(true);
         setLightEffectList(
             lightEffectData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(lightUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = lightEffectData.concat(res.result);
-                setLightEffectData(newData);
-                setLightEffectList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = lightEffectData.concat(res.result);
+            setLightEffectData(newData);
+            setLightEffectList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const lightEffectLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={lightEffectOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={lightEffectOnLoadMore}>show more</Button>
+        </div>
         ) : null;
 
     // color part
@@ -405,8 +406,8 @@ const Create2 = () => {
     const [selectedColorTags, setSelectedColorTags] = useState([]);
     const handleColorTagChange = (tag, checked) => {
         const nextSelectedColorTags = checked
-            ? [...selectedColorTags, tag]
-            : selectedColorTags.filter((t) => t !== tag);
+        ? [...selectedColorTags, tag]
+        : selectedColorTags.filter((t) => t !== tag);
         console.log("You are interested in: ", nextSelectedColorTags);
         setSelectedColorTags(nextSelectedColorTags);
     };
@@ -414,48 +415,48 @@ const Create2 = () => {
     useEffect(() => {
         // var currentUrl = envUrl
         fetch(colorUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                setInitLoading(false);
-                setColorData(res.result);
-                setColorList(res.result);
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            setInitLoading(false);
+            setColorData(res.result);
+            setColorList(res.result);
+        });
     }, []);
     const colorOnLoadMore = () => {
         setLoading(true);
         setColorList(
             colorData.concat(
-                [...new Array(count)].map(() => ({
-                    loading: true,
-
-                }))
-            )
+            [...new Array(count)].map(() => ({
+            loading: true,
+            
+            }))
+        )
         );
         fetch(colorUrl)
-            .then((res) => res.json())
-            .then((res) => {
-                const newData = colorData.concat(res.result);
-                setColorData(newData);
-                setColorList(newData);
-                setLoading(false);
-                // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
-                // In real scene, you can using public method of react-virtualized:
-                // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
-                window.dispatchEvent(new Event("resize"));
-            });
+        .then((res) => res.json())
+        .then((res) => {
+            const newData = colorData.concat(res.result);
+            setColorData(newData);
+            setColorList(newData);
+            setLoading(false);
+            // Resetting window's offsetTop so as to display react-virtualized demo underfloor.
+            // In real scene, you can using public method of react-virtualized:
+            // https://stackoverflow.com/questions/46700726/how-to-use-public-method-updateposition-of-react-virtualized
+            window.dispatchEvent(new Event("resize"));
+        });
     };
     const colorLoadMore =
         !initLoading && !loading ? (
-            <div
-                style={{
-                    textAlign: "center",
-                    marginTop: 12,
-                    height: 32,
-                    lineHeight: "32px",
-                }}
-            >
-                <Button onClick={colorOnLoadMore}>show more</Button>
-            </div>
+        <div
+            style={{
+            textAlign: "center",
+            marginTop: 12,
+            height: 32,
+            lineHeight: "32px",
+            }}
+        >
+            <Button onClick={colorOnLoadMore}>show more</Button>
+        </div>
         ) : null;
 
 
@@ -468,8 +469,8 @@ const Create2 = () => {
     // console.log("selectedLightEffectTags is "+ selectedLightEffectTags)
     // console.log("selectedViewTags is "+ selectedViewTags)
 
-    summaryTag.push(...selectedManifestationsTags, ...selectedObjTags, ...selectedEnvTags, ...selectedColorTags, ...selectedLightEffectTags, ...selectedViewTags, ...selectedStyleTags)
-    console.log("summaryTag is " + summaryTag)
+    summaryTag.push(...selectedManifestationsTags, ...selectedObjTags,...selectedEnvTags,...selectedColorTags,...selectedLightEffectTags,...selectedViewTags,...selectedStyleTags )
+    console.log("summaryTag is "+ summaryTag)
 
     // tags at the bottom
     const [totalTags, setTags] = useState(summaryTag);
@@ -479,10 +480,10 @@ const Create2 = () => {
     const [editInputValue, setEditInputValue] = useState('');
     const inputRef = useRef(null);
     const editInputRef = useRef(null);
-    console.log("totalTags is " + totalTags)
+    console.log("totalTags is "+totalTags)
     useEffect(() => {
         if (inputVisible) {
-            inputRef.current?.focus();
+        inputRef.current?.focus();
         }
     }, [inputVisible]);
     useEffect(() => {
@@ -501,7 +502,7 @@ const Create2 = () => {
     };
     const handleInputConfirm = () => {
         if (inputValue && totalTags.indexOf(inputValue) === -1) {
-            setTags([...totalTags, inputValue]);
+        setTags([...totalTags, inputValue]);
         }
         setInputVisible(false);
         setInputValue('');
@@ -511,7 +512,7 @@ const Create2 = () => {
     };
     const handleEditInputConfirm = () => {
         const newTags = [...totalTags];
-        console.log("newTags is " + { newTags })
+        console.log("newTags is "+ {newTags})
         newTags[editInputIndex] = editInputValue;
         setTags(newTags);
         setEditInputIndex(-1);
@@ -521,11 +522,11 @@ const Create2 = () => {
     // final prompt tags
     const finalPrompt = []
     finalPrompt.push(...summaryTag, ...totalTags)
-    console.log("final prompt is " + finalPrompt)
-
+    console.log("final prompt is "+ finalPrompt)
+    
 
     const [resultImg, setResultImg] = useState([])
-
+    
     // const getImg = (finalPrompt) => {    
     //     console.log("calling api, waiting")
     //     fetch('http://185.46.222.81:4501/download/'+ finalPrompt)
@@ -533,19 +534,19 @@ const Create2 = () => {
     //         .then(image0 => console.log(image0));
 
     // }
-    const imgUrl = "http://185.46.222.81:4501/download/" + finalPrompt;
+    const imgUrl = "http://185.46.222.81:4501/download/"+ finalPrompt;
     const getImg = () => {
         console.log("calling api, waiting")
         fetch(imgUrl)
-            .then((res) =>
-                res.json())
+            .then((res) => 
+            res.json())
             .then((res) => {
                 console.log(res);
                 setResultImg(res)
             });
 
     }
-    console.log("resultImg is " + resultImg)
+    console.log("resultImg is "+ resultImg)
 
     return (
         <div>
@@ -581,8 +582,8 @@ const Create2 = () => {
                                     height: 401,
                                     borderRadius: 10
                                 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 1</h3>
-                                    <h5>I want to express my work in the style of __________________</h5>
+                                    <h3 style={{ fontWeight: 'bold', fontFamily:'Roboto',  }}>Step 1</h3>
+                                    <h5 style={{fontFamily:'Roboto'}}>I want to express my work in the style of __________________</h5>
                                     <div className="de_tab tab_methods">
                                         {/* <input
                                         type="text"
@@ -591,8 +592,10 @@ const Create2 = () => {
                                         className="form-control"
                                         placeholder="eg: oil painting"
                                         /> */}
-
-                                        <Input placeholder="Example: sketch" allowClear onSearch={onSearch} prefix={<SearchOutlined />} />
+                                        <div className="search">
+                                            <input type="text" className="search" placeholder="Example: sketch" />
+                                        </div>
+                                        
 
 
 
@@ -624,11 +627,11 @@ const Create2 = () => {
                                 </div>
                                 <div className="spacer-20"></div>
                                 <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 174, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 2</h3>
-                                    <h5>I want to draw __________________</h5>
+                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 2</h3>
+                                    <h5 style={{fontFamily:'Roboto'}}>I want to draw __________________</h5>
                                     {/* <input type="text" name="item_title" id="item_title" className="form-control" placeholder="e.g. 'A Black Cat" /> */}
-                                    <div>
-                                        <Input placeholder="Example: a black kitten" allowClear />
+                                    <div className="search">
+                                        <input type="text" className="search" placeholder="Example: a black kitten" />
                                     </div>
 
                                     <List
@@ -657,12 +660,12 @@ const Create2 = () => {
                                 </div>
                                 <div className="spacer-20"></div>
                                 <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 218, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 3</h3>
-                                    <h5>The environment of this object is __________________</h5>
+                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 3</h3>
+                                    <h5 style={{fontFamily:'Roboto'}} >The environment of this object is __________________</h5>
                                     {/* <textarea data-autoresize name="item_desc" id="item_desc" className="form-control" placeholder="e.g. 'Mountains, Castle'"></textarea> */}
                                     {/* Fill in the environment list and add loading more button */}
-                                    <div>
-                                        <Input placeholder="Example: Mountain" allowClear />
+                                    <div className="search">
+                                            <input type="text" className="search" placeholder="Example: Mountain" />
                                     </div>
 
                                     <List
@@ -701,11 +704,11 @@ const Create2 = () => {
                                 </div>
                                 <div className="spacer-20"></div>
                                 <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 401, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 4</h3>
-                                    <h5>The style of this painting is __________________</h5>
+                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 4</h3>
+                                    <h5 style={{fontFamily:'Roboto'}}>The style of this painting is __________________</h5>
                                     {/* <input type="text" name="item_price" id="item_price" className="form-control" placeholder="e.g. 'Rcoco, Minimalism'" /> */}
-                                    <div>
-                                        <Input placeholder="You can enter your favorite artist or art style. Example: Postmodernism" allowClear onSearch={onSearch} prefix={<SearchOutlined />} />
+                                    <div className="search">
+                                            <input type="text" className="search" placeholder="You can enter your favorite artist or art style. Example: Postmodernism" />
                                     </div>
 
                                     <List
@@ -734,7 +737,7 @@ const Create2 = () => {
                                 </div>
                                 <div className="spacer-20"></div>
                                 <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 359, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 5</h3>
+                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 5</h3>
                                     <h5>I want to setting more</h5>
                                     {/* Size, view, light effect, colour tune */}
                                     {/* <input type="text" name="drawing_setting" id="drawing_setting" className="form-control" placeholder="views" /> */}
@@ -822,8 +825,8 @@ const Create2 = () => {
                                     height: 285,
                                     borderRadius: 10
                                 }}>
-                                    <h3 style={{ fontWeight: 'bold' }}>Step 6</h3>
-                                    <h5>Confirm my prompt:</h5>
+                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 6</h3>
+                                    <h5 style={{fontFamily:'Roboto'}}>Confirm my prompt:</h5>
                                     <div className="spacer-10"></div>
                                     {summaryTag.map((t) => {
                                         return (

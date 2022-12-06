@@ -37,10 +37,14 @@ const ColumnNewRedux = ({ showLoadMore = true, shuffle = false, authorId = null 
     const loadMore = () => {
         dispatch(actions.fetchNftsBreakdown(authorId));
     }
+    console.log("nft"+ nfts);
+    console.log("onImgLoad"+onImgLoad);
+    console.log("height"+height);
 
     return (
         <div className='row'>
             {nfts && nfts.map( (nft, index) => (
+                
                 nft.category === 'music' ?
                 <NftMusicCard nft={nft} audioUrl={nft.audio_url} key={index} onImgLoad={onImgLoad} height={height} />
                 :

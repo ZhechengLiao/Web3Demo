@@ -149,3 +149,4 @@ return (
 );
 }
 export default memo(Colection);
+

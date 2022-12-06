@@ -2,7 +2,6 @@ import React from 'react';
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import ScrollToTopBtn from './menu/ScrollToTop';
 import Header from './menu/header';
-import Home1grey from './pages/home1Grey';
 import Explore from './pages/explore';
 import Explore2grey from './pages/explore2Grey';
 import Author from './pages/Author';
@@ -13,6 +12,7 @@ import auth from '../core/auth';
 import Profile from './pages/Profile';
 import CreatePage from './pages/create';
 import Create2 from './pages/create2';
+import Home from './pages/home';
 
 import { createGlobalStyle } from 'styled-components';
 
@@ -57,15 +57,15 @@ const app= () => (
           } 
         />
       </Route>
-      <Route path="/home" element={<Create2 />} />
-      {/* <Route element={<Home1grey/>} path="/home1Grey" />
-      <Route element={<Explore/>} path="/explore" />
-      <Route element={<Explore2grey/>} path="/explore2Grey" />
+      <Route path="/home" element={<Home />} />
+      {/* <Route element={<Home1grey/>} path="/home1Grey" /> */}
+      <Route element={<Create2/>} path="/explore" />
+      {/* <Route element={<Explore2grey/>} path="/explore2Grey" />
       <Route element={<AuthorGrey />} path="/AuthorGrey/:authorId" />
       <Route element={<Activity />} path="/activity" />
       <Route element={<Activitygrey />} path="/activityGrey" />
       <Route element={<CreatePage/>} path="/create"/> */}
-      <Route element={<Create2/>} path="create2"/>
+      <Route element={<Create2/>} path="create"/>
       
     </Routes>
     <ScrollToTopBtn />

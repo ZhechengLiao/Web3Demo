@@ -533,12 +533,28 @@ const Create2 = () => {
     //         .then(image0 => console.log(image0));
 
     // }
-    const imgUrl = "http://185.46.222.81:4501/download/"+ finalPrompt;
+    var myHeaders = new Headers();
+    myHeaders.append("User-id", "12345");
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+        "email": "cj3.huang@gmail.com",
+        "prompt": finalPrompt.join(" "),
+    });
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: raw,
+        redirect: 'follow'
+    };
+
+    const imgUrl = "http://61.220.40.95:40909/download/";
     const getImg = () => {
         console.log("calling api, waiting")
-        fetch(imgUrl)
-            .then((res) => 
-            res.json())
+        fetch(imgUrl, requestOptions)
+            .then((res) =>
+                res.json())
             .then((res) => {
                 console.log(res);
                 setResultImg(res)
@@ -549,388 +565,352 @@ const Create2 = () => {
 
     return (
         <div>
-            <section
-                className="jumbotron breadcumb no-bg"
-                style={{ backgroundImage: `url(${"./img/background/subheader.jpg"})` }}
-            >
-                <div className="mainbreadcumb">
-                    <div className="container">
-                        <div className="row m-10-hor">
-                            <div className="col-12">
-                                <h1 className="text-center">Tada Galaxy</h1>
-                            </div>
-                        </div>
-                    </div>
+        <section
+            className="jumbotron breadcumb no-bg"
+            style={{ backgroundImage: `url(${"./img/background/subheader.jpg"})` }}
+        >
+            <div className="mainbreadcumb">
+            <div className="container">
+                <div className="row m-10-hor">
+                <div className="col-12">
+                    <h1 className="text-center">Tada Galaxy</h1>
                 </div>
-            </section>
+                </div>
+            </div>
+            </div>
+        </section>
 
-            <section className="container">
+        <section className="container">
 
-                <div className="row">
-                    <div className="col-lg-7 offset-lg-1 mb-5" >
-                        <form id="form-create-item" className="form-border" action="#">
-                            <div className="field-set" style={{ position: 'relative', left: '18%', right: '19%' }}>
-                                <div className="spacer-single"></div>
-                                <div className="Step1" style={{
-                                    backgroundColor: '#f9f9f9',
-                                    paddingTop: 30,
-                                    paddingLeft: 31,
-                                    paddingRight: 31,
-                                    paddingBottom: 30,
-                                    width: 892,
-                                    height: 401,
-                                    borderRadius: 10
-                                }}>
-                                    <h3 style={{ fontWeight: 'bold', fontFamily:'Roboto',  }}>Step 1</h3>
-                                    <h5 style={{fontFamily:'Roboto'}}>I want to express my work in the style of __________________</h5>
-                                    <div className="de_tab tab_methods">
-                                        {/* <input
-                                        type="text"
-                                        name="item_title"
-                                        id="item_title"
-                                        className="form-control"
-                                        placeholder="eg: oil painting"
-                                        /> */}
-                                        <div className="search">
-                                            <input type="text" className="search" placeholder="Example: sketch" />
-                                        </div>
-                                        
+        <div className="row">
+            <div className="col-lg-7 offset-lg-1 mb-5">
+            <form id="form-create-item" className="form-border" action="#">
+                <div className="field-set">
 
+                    <div className="spacer-single"></div>
 
-
-
-                                        <List
-                                            grid={{ gutter: 15, column: 5 }}
-                                            className="demo-loadmore-list"
-                                            loading={initLoading}
-                                            itemLayout="vertical"
-                                            loadMore={materialsLoadMore}
-                                            dataSource={materialsList}
-                                            renderItem={(item) => (
-                                                <Skeleton loading={item.loading} active>
-                                                    <div>
-                                                        <CheckableTag
-                                                            key={item.EN}
-                                                            checked={selectedManifestationsTags.indexOf(item.EN) > -1}
-                                                            onChange={(checked) =>
-                                                                handleManifestationsTagChange(item.EN, checked)
-                                                            }
-                                                        >
-                                                            {item.EN}
-                                                        </CheckableTag>
-                                                    </div>
-                                                </Skeleton>
-                                            )}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 174, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 2</h3>
-                                    <h5 style={{fontFamily:'Roboto'}}>I want to draw __________________</h5>
-                                    {/* <input type="text" name="item_title" id="item_title" className="form-control" placeholder="e.g. 'A Black Cat" /> */}
-                                    <div className="search">
-                                        <input type="text" className="search" placeholder="Example: a black kitten" />
-                                    </div>
-
-                                    <List
-                                        grid={{ gutter: 15, column: 5 }}
-                                        className="demo-loadmore-list"
-                                        loading={initLoading}
-                                        itemLayout="vertical"
-                                        loadMore={objLoadMore}
-                                        dataSource={objList}
-                                        renderItem={(item) => (
-                                            <Skeleton loading={item.loading} active>
-                                                <div>
-                                                    <CheckableTag
-                                                        key={item.EN}
-                                                        checked={selectedObjTags.indexOf(item.EN) > -1}
-                                                        onChange={(checked) =>
-                                                            handleObjTagChange(item.EN, checked)
-                                                        }
-                                                    >
-                                                        {item.EN}
-                                                    </CheckableTag>
-                                                </div>
-                                            </Skeleton>
-                                        )}
-                                    />
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 218, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 3</h3>
-                                    <h5 style={{fontFamily:'Roboto'}} >The environment of this object is __________________</h5>
-                                    {/* <textarea data-autoresize name="item_desc" id="item_desc" className="form-control" placeholder="e.g. 'Mountains, Castle'"></textarea> */}
-                                    {/* Fill in the environment list and add loading more button */}
-                                    <div className="search">
-                                            <input type="text" className="search" placeholder="Example: Mountain" />
-                                    </div>
-
-                                    <List
-                                        grid={{ gutter: 15, column: 5 }}
-                                        className="demo-loadmore-list"
-                                        loading={initLoading}
-                                        itemLayout="vertical"
-                                        loadMore={loadMore}
-                                        dataSource={list}
-                                        renderItem={(item) => (
-                                            // <List.Item
-                                            // actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
-                                            // >
-                                            <Skeleton loading={item.loading} active>
-                                                {/* <List.Item.Meta
-                                            // avatar={<Avatar src={item.picture.large} />}
-                                            // title = {<a>{item.EN}</a>}
-                                            // title={<a href="https://ant.design">{item.name?.last}</a>}
-                                            // description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                                            /> */}
-                                                <div>
-                                                    <CheckableTag
-                                                        key={item.EN}
-                                                        checked={selectedEnvTags.indexOf(item.EN) > -1}
-                                                        onChange={(checked) =>
-                                                            handleEnvTagChange(item.EN, checked)
-                                                        }
-                                                    >
-                                                        {item.EN}
-                                                    </CheckableTag>
-                                                </div>
-                                            </Skeleton>
-                                            // </List.Item>
-                                        )}
-                                    />
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 401, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 4</h3>
-                                    <h5 style={{fontFamily:'Roboto'}}>The style of this painting is __________________</h5>
-                                    {/* <input type="text" name="item_price" id="item_price" className="form-control" placeholder="e.g. 'Rcoco, Minimalism'" /> */}
-                                    <div className="search">
-                                            <input type="text" className="search" placeholder="You can enter your favorite artist or art style. Example: Postmodernism" />
-                                    </div>
-
-                                    <List
-                                        grid={{ gutter: 15, column: 5 }}
-                                        className="demo-loadmore-list"
-                                        loading={initLoading}
-                                        itemLayout="vertical"
-                                        loadMore={styleLoadMore}
-                                        dataSource={styleList}
-                                        renderItem={(item) => (
-                                            <Skeleton loading={item.loading} active>
-                                                <div>
-                                                    <CheckableTag
-                                                        key={item.EN}
-                                                        checked={selectedStyleTags.indexOf(item.EN) > -1}
-                                                        onChange={(checked) =>
-                                                            handleStyleTagChange(item.EN, checked)
-                                                        }
-                                                    >
-                                                        {item.EN}
-                                                    </CheckableTag>
-                                                </div>
-                                            </Skeleton>
-                                        )}
-                                    />
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{ backgroundColor: '#f9f9f9', paddingTop: 30, paddingLeft: 31, paddingRight: 31, paddingBottom: 30, width: 892, height: 359, borderRadius: 10 }}>
-                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 5</h3>
-                                    <h5>I want to setting more</h5>
-                                    {/* Size, view, light effect, colour tune */}
-                                    {/* <input type="text" name="drawing_setting" id="drawing_setting" className="form-control" placeholder="views" /> */}
-                                    <div>
-                                        <Collapse
-                                            bordered={false}
-                                            defaultActiveKey={[]}
-                                            expandIcon={({ isActive }) => <CaretRightOutlined rotate={isActive ? 90 : 0} />}
-                                            className="site-collapse-custom-collapse"
-                                        >
-                                            <Panel header=<h5>Size</h5> key="1" className="site-collapse-custom-panel">
-                                                <Input placeholder="W" style={{ width: 36 }} /> : <Input placeholder="H" style={{ width: 36 }} />
-
-                                            </Panel>
-                                            <div>
-                                                <h7><InfoCircleOutlined /> choose the ratio and size of the image.</h7>
-                                            </div>
-                                            <Panel header=<h5>View</h5> key="2" className="site-collapse-custom-panel">
-                                                <List
-                                                    grid={{ gutter: 15, column: 5 }}
-                                                    className="demo-loadmore-list"
-                                                    itemLayout="vertical"
-                                                    loadMore={viewLoadMore}
-                                                    dataSource={viewList}
-                                                    renderItem={(item) => (
-                                                        <Skeleton loading={item.loading} active>
-                                                            <div>
-                                                                <CheckableTag
-                                                                    key={item.EN}
-                                                                    checked={selectedViewTags.indexOf(item.EN) > -1}
-                                                                    onChange={(checked) =>
-                                                                        handleViewTagChange(item.EN, checked)
-                                                                    }
-                                                                >
-                                                                    {item.EN}
-                                                                </CheckableTag>
-                                                            </div>
-                                                        </Skeleton>
-                                                    )}
-                                                />
-                                            </Panel>
-                                            <h7><InfoCircleOutlined /> choose different angles for your pictures.</h7>
-                                            <Panel header=<h5>Light Effect</h5> key="3" className="site-collapse-custom-panel">
-                                                <List
-                                                    grid={{ gutter: 15, column: 5 }}
-                                                    className="demo-loadmore-list"
-                                                    itemLayout="vertical"
-                                                    loadMore={lightEffectLoadMore}
-                                                    dataSource={lightEffectList}
-                                                    renderItem={(item) => (
-                                                        <Skeleton loading={item.loading} active>
-                                                            <div>
-                                                                <CheckableTag
-                                                                    key={item.EN}
-                                                                    checked={selectedLightEffectTags.indexOf(item.EN) > -1}
-                                                                    onChange={(checked) =>
-                                                                        handleLightEffectTagChange(item.EN, checked)
-                                                                    }
-                                                                >
-                                                                    {item.EN}
-                                                                </CheckableTag>
-                                                            </div>
-                                                        </Skeleton>
-                                                    )}
-                                                />
-                                            </Panel>
-                                            <h7><InfoCircleOutlined /> choose different angles for your pictures.</h7>
-                                        </Collapse>
-                                    </div>
-                                    <div>
-
-                                    </div>
-
-
-
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{
-                                    backgroundColor: '#f9f9f9',
-                                    paddingTop: 30,
-                                    paddingLeft: 31,
-                                    paddingRight: 31,
-                                    paddingBottom: 30,
-                                    width: 892,
-                                    height: 285,
-                                    borderRadius: 10
-                                }}>
-                                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 6</h3>
-                                    <h5 style={{fontFamily:'Roboto'}}>Confirm my prompt:</h5>
-                                    <div className="spacer-10"></div>
-                                    {summaryTag.map((t) => {
-                                        return (
-                                            <Tag>
-                                                {t}
-                                            </Tag>
-                                        )
-                                    })}
-
-                                    {totalTags.map((tag, index) => {
-                                        if (editInputIndex === index) {
-                                            return (
-                                                <Input
-                                                    ref={editInputRef}
-                                                    key={tag}
-                                                    size="small"
-                                                    className="tag-input"
-                                                    value={editInputValue}
-                                                    onChange={handleEditInputChange}
-                                                    onBlur={handleEditInputConfirm}
-                                                    onPressEnter={handleEditInputConfirm}
-                                                />
-                                            );
-                                        }
-                                        const isLongTag = tag.length > 20;
-                                        const tagElem = (
-                                            <Tag
-                                                className="edit-tag"
-                                                key={tag}
-                                                closable={index !== 0}
-                                                onClose={() => handleClose(tag)}
-                                            >
-                                                <span
-                                                    onDoubleClick={(e) => {
-                                                        if (index !== 0) {
-                                                            setEditInputIndex(index);
-                                                            setEditInputValue(tag);
-                                                            e.preventDefault();
-                                                        }
-                                                    }}
-                                                >
-                                                    {isLongTag ? `${tag.slice(0, 20)}...` : tag}
-                                                </span>
-                                            </Tag>
-                                        );
-                                        return isLongTag ? (
-                                            <Tooltip title={tag} key={tag}>
-                                                {tagElem}
-                                            </Tooltip>
-                                        ) : (
-                                            tagElem
-                                        );
-                                    })}
-                                    {inputVisible && (
-                                        <Input
-                                            ref={inputRef}
-                                            type="text"
-                                            size="small"
-                                            className="tag-input"
-                                            value={inputValue}
-                                            onChange={handleInputChange}
-                                            onBlur={handleInputConfirm}
-                                            onPressEnter={handleInputConfirm}
-                                        />
-                                    )}
-                                    <div style={{ width: 830, height: 146, backgroundColor: '#e9e9e9', borderRadius: 10 }}>
-
-                                    </div>
-
-                                </div>
-                                <div className="spacer-20"></div>
-                                <div style={{ position: 'relative', left: '49%', right: '38.9%' }}>
-                                    {/* button to sumbit */}
-                                    <input type="button" id="submit" className="btn-main" value="TA DA!" onClick={getImg} />
-                                    {/* <h5>{resultImg.image0}</h5> */}
-                                </div>
-
-
-                                <div className="spacer-20"></div>
-                                <Image.PreviewGroup>
-                                    <Image
-                                        width={300}
-                                        src={resultImg.image0} />
-                                    <Image
-                                        width={300}
-                                        src={resultImg.image1}
-                                    />
-                                    <Image
-                                        width={300}
-                                        src={resultImg.image2}
-                                    />
-                                    <Image
-                                        width={300}
-                                        src={resultImg.image3}
-                                    />
-                                </Image.PreviewGroup>
-
-
+                    <h3 style={{ fontWeight: 'bold', fontFamily:'Roboto',  }}>Step 1</h3>
+                    <h5 style={{fontFamily:'Roboto'}}>I want to express my work in the style of __________________</h5>
+                    <div className="de_tab tab_methods">
+                    {/* <input
+                    type="text"
+                    name="item_title"
+                    id="item_title"
+                    className="form-control"
+                    placeholder="eg: oil painting"
+                    /> */}
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="vertical"
+                    loadMore={materialsLoadMore}
+                    dataSource={materialsList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedManifestationsTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleManifestationsTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
                             </div>
-                        </form>
+                        </Skeleton>
+                    )}
+                    />
                     </div>
-                </div >
-            </section >
-            <Footer />
-        </div >
+
+                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 2</h3>
+                    <h5 style={{fontFamily:'Roboto'}}>I want to draw __________________</h5>
+                    {/* <input type="text" name="item_title" id="item_title" className="form-control" placeholder="e.g. 'A Black Cat" /> */}
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="vertical"
+                    loadMore={objLoadMore}
+                    dataSource={objList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedObjTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleObjTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                    )}
+                    />
+
+                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 3</h3>
+                    <h5 style={{fontFamily:'Roboto'}} >The environment of this object is __________________</h5>
+                    {/* <textarea data-autoresize name="item_desc" id="item_desc" className="form-control" placeholder="e.g. 'Mountains, Castle'"></textarea> */}
+                    {/* Fill in the environment list and add loading more button */}
+
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="vertical"
+                    loadMore={loadMore}
+                    dataSource={list}
+                    renderItem={(item) => (
+                        // <List.Item
+                        // actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">more</a>]}
+                        // >
+                        <Skeleton loading={item.loading} active>
+                            {/* <List.Item.Meta
+                            // avatar={<Avatar src={item.picture.large} />}
+                            // title = {<a>{item.EN}</a>}
+                            // title={<a href="https://ant.design">{item.name?.last}</a>}
+                            // description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                            /> */}
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedEnvTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleEnvTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                        // </List.Item>
+                    )}
+                    />
+
+                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 4</h3>
+                    <h5 style={{fontFamily:'Roboto'}}>The style of this painting is __________________</h5>
+                    {/* <input type="text" name="item_price" id="item_price" className="form-control" placeholder="e.g. 'Rcoco, Minimalism'" /> */}
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="vertical"
+                    loadMore={styleLoadMore}
+                    dataSource={styleList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedStyleTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleStyleTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                    )}
+                    />
+
+                    <h3 style={{ fontWeight: 'bold',fontFamily:'Roboto' }}>Step 5</h3>
+                    <h5>I want to setting more</h5>
+                    {/* Size, view, light effect, colour tune */}
+                    {/* <input type="text" name="drawing_setting" id="drawing_setting" className="form-control" placeholder="views" /> */}
+                    <h6> -- Size</h6>
+                    <h7>***please add your custome size in your final prompt part</h7>
+                    <Image width={512} src="././img/size_example.png"></Image>
+
+                    
+                    <h6> -- View</h6>
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    itemLayout="vertical"
+                    loadMore={viewLoadMore}
+                    dataSource={viewList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedViewTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleViewTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                    )}
+                    />
+
+                    <h6> -- Light Effect</h6>
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    itemLayout="vertical"
+                    loadMore={lightEffectLoadMore}
+                    dataSource={lightEffectList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedLightEffectTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleLightEffectTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                    )}
+                    />
+
+                    <h6> -- Colour Tune</h6>
+                    <List
+                    grid={{ gutter: 15, column: 5 }}
+                    className="demo-loadmore-list"
+                    loading={initLoading}
+                    itemLayout="vertical"
+                    loadMore={colorLoadMore}
+                    dataSource={colorList}
+                    renderItem={(item) => (
+                        <Skeleton loading={item.loading} active>
+                            <div>
+                            <CheckableTag
+                                key={item.EN}
+                                checked={selectedColorTags.indexOf(item.EN) > -1}
+                                onChange={(checked) =>
+                                handleColorTagChange(item.EN, checked)
+                                }
+                            >
+                                {item.EN}
+                            </CheckableTag>
+                            </div>
+                        </Skeleton>
+                    )}
+                    />
+                    
+                    <h5>Your Prompt</h5>
+                    <h6>Here to check and add your final prompt:</h6>
+                    <div className="spacer-10"></div>
+                    {summaryTag.map((t)=>{
+                        return(
+                            <Tag>
+                                {t}
+                            </Tag>
+                        )
+                    })}
+
+                    {totalTags.map((tag, index) => {
+                        if (editInputIndex === index) {
+                        return (
+                            <Input
+                            ref={editInputRef}
+                            key={tag}
+                            size="small"
+                            className="tag-input"
+                            value={editInputValue}
+                            onChange={handleEditInputChange}
+                            onBlur={handleEditInputConfirm}
+                            onPressEnter={handleEditInputConfirm}
+                            />
+                        );
+                        }
+                        const isLongTag = tag.length > 20;
+                        const tagElem = (
+                        <Tag
+                            className="edit-tag"
+                            key={tag}
+                            closable={index !== 0}
+                            onClose={() => handleClose(tag)}
+                        >
+                            <span
+                            onDoubleClick={(e) => {
+                                if (index !== 0) {
+                                setEditInputIndex(index);
+                                setEditInputValue(tag);
+                                e.preventDefault();
+                                }
+                            }}
+                            >
+                            {isLongTag ? `${tag.slice(0, 20)}...` : tag}
+                            </span>
+                        </Tag>
+                        );
+                        return isLongTag ? (
+                        <Tooltip title={tag} key={tag}>
+                            {tagElem}
+                        </Tooltip>
+                        ) : (
+                        tagElem
+                        );
+                    })}
+                    {inputVisible && (
+                        <Input
+                        ref={inputRef}
+                        type="text"
+                        size="small"
+                        className="tag-input"
+                        value={inputValue}
+                        onChange={handleInputChange}
+                        onBlur={handleInputConfirm}
+                        onPressEnter={handleInputConfirm}
+                        />
+                    )}
+                    {!inputVisible && (
+                        <Tag className="site-tag-plus" onClick={showInput}>
+                        <PlusOutlined /> Add New Tag
+                        </Tag>
+                    )}
+                    <div className="spacer-20"></div>
+
+                    {/* button to sumbit */}
+                    <input type="button" id="submit" className="btn-main" value="TaDa!" onClick={getImg}/>
+                    {/* <h5>{resultImg.image0}</h5> */}
+
+                    <h7>***After clicking button, please wait the images to come out!! It may take couple of minutes</h7>
+
+                    <div className="spacer-20"></div>
+
+                    {/* example for tim */}
+                    <div className="example_center">example</div>
+
+                    <div>Click to enlarge</div>
+                    <Image.PreviewGroup>
+                        <Image 
+                        width={300} 
+                        src= {resultImg.image0}/>
+                        <Image
+                        width={300}
+                        src={resultImg.image1}  
+                        />
+                        <Image
+                        width={300}
+                        src={resultImg.image2}
+                        />
+                        <Image
+                        width={300}
+                        src={resultImg.image3}
+                        />
+                    </Image.PreviewGroup>
+ 
+
+                </div>
+            </form>
+            </div>
+        </div>
+        </section>
+        <Footer />
+        </div>
     );
 };
 

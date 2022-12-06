@@ -1,7 +1,6 @@
 import { Button, List, Skeleton, Image, Tag, Input, Tooltip, Select, Collapse } from "antd";
 import { PlusOutlined, InfoCircleOutlined, SearchOutlined } from '@ant-design/icons';
 import React, { useEffect, useState, useRef } from "react";
-import 'C:/Users/MSIK/Desktop/Web3Demo-website_test/web_front/src/components/styles.css';
 import "antd/dist/antd.css";
 import Footer from '../components/footer';
 import { CaretRightOutlined } from '@ant-design/icons';
